@@ -1,0 +1,28 @@
+{
+  "name": "console-fun",
+  "version": "1.0.0",
+  "description": "Some stuff in the console: utils, printing, games and other fun",
+  "main": "dist/cli.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "unbuild",
+    "go": "node dist/cli.mjs"
+  },
+  "keywords": [],
+  "author": "Rushan Alyautdinov",
+  "license": "MIT",
+  "dependencies": {
+    "ansi-escapes": "^7.0.0",
+    "chalk": "^5.3.0",
+    "coloreme": "^1.0.5",
+    "delay": "^6.0.0",
+    "fast-shuffle": "^6.1.0",
+    "figures": "^6.1.0",
+    "meow": "^13.2.0",
+    "rambda": "^9.2.0",
+    "string-width": "^7.1.0"
+  },
+  "devDependencies": {
+    "unbuild": "^2.0.0"
+  }
+}
