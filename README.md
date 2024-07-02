@@ -34,13 +34,13 @@ $ console-fun --help
 ## Demo
 
 ### colored-stars-game
-[colored-stars-game-demo](media/colored-stars-game-demo.gif)
+![colored-stars-game-demo](media/colored-stars-game-demo.gif)
 
 ### hacker-types
 
 Type any keys and some program text will be printed!
 
-[hacker-types-demo](media/hacker-types-demo.gif)
+![hacker-types-demo](media/hacker-types-demo.gif)
 
 etc.
 
