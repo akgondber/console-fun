@@ -1,216 +1,199 @@
-import readline from "readline";
-import figureSet from "figures";
-import * as R from 'rambda';
-import { shuffle } from 'fast-shuffle';
-import ansiEscapes from 'ansi-escapes';
+import * as R from "rambda";
+import { shuffle } from "fast-shuffle";
+import ansiEscapes from "ansi-escapes";
 import stringWidth from "string-width";
-import chalk from 'chalk';
-import { coloreme } from "coloreme";
-import delay from 'delay';
+import chalk from "chalk";
+import delay from "delay";
+
+import { fallingStarsGame } from "./games/stars-watcher";
+import { lineByLine } from "./printing/line-by-line";
+import { readFileLineByLine } from "./printing/read-file";
+import { coloredStarsGame } from "./games/colored-stars";
+import { hackerTypes } from "./printing/hacker-types";
 
 console.log(ansiEscapes.cursorUp(2) + ansiEscapes.cursorLeft);
-console.log('aaa');
 const getRandom = R.compose(R.head, shuffle);
 
 let i = 0;
-const sra = ['acdc', 'vfdv', 'fv', 'ewrf', 'few', 'ev', 'dv', 'vfgbg', 'vdfv', 'njhmjh', 'scvfdb'];
+const sra = [
+  "acdc",
+  "vfdv",
+  "fv",
+  "ewrf",
+  "few",
+  "ev",
+  "dv",
+  "vfgbg",
+  "vdfv",
+  "njhmjh",
+  "scvfdb",
+];
 
 const showTextFalling = (text) => {
-    let printedLines = [];
-    let currentIndex = 0;
-    let offset = 0;
-    process.stdout.write(ansiEscapes.eraseScreen);
-    process.stdout.write(ansiEscapes.cursorTo(0, 0));
+  let printedLines = [];
+  let currentIndex = 0;
+  let offset = 0;
+  process.stdout.write(ansiEscapes.eraseScreen);
+  process.stdout.write(ansiEscapes.cursorTo(0, 0));
 
-    const interval = setInterval(async () => {
-        // process.stdout.write(ansiEscapes.cursorMove(1));
-        const current = text[offset];
-        printedLines[currentIndex] ||= '';
-        if (stringWidth(printedLines[currentIndex]) === process.stdout.columns) {
-            currentIndex++;
-            // process.stdout.write(ansiEscapes.cursorNextLine + ansiEscapes. );
-            // process.stdout.write(ansiEscapes.cursorGetPosition);
-            // ansiEscapes.eraseStartLine + ansiEscapes.cursorTo(0));
-        }
+  const interval = setInterval(async () => {
+    // process.stdout.write(ansiEscapes.cursorMove(1));
+    const current = text[offset];
+    printedLines[currentIndex] ||= "";
+    if (stringWidth(printedLines[currentIndex]) === process.stdout.columns) {
+      currentIndex++;
+      // process.stdout.write(ansiEscapes.cursorNextLine + ansiEscapes. );
+      // process.stdout.write(ansiEscapes.cursorGetPosition);
+      // ansiEscapes.eraseStartLine + ansiEscapes.cursorTo(0));
+    }
 
-        process.stdout.write(current);
-        // printed += current;
-        printedLines[currentIndex] += current;
-        offset++;
+    process.stdout.write(current);
+    // printed += current;
+    printedLines[currentIndex] += current;
+    offset++;
 
-        await delay(100);
+    await delay(100);
 
-        if (offset > text.length) {
-            clearInterval(interval);
-        }
-    }, 200);
+    if (offset > text.length) {
+      clearInterval(interval);
+    }
+  }, 200);
 };
 
-const randPos = (yMin = 0) => {
-    const randY = Math.floor(Math.random() * process.stdout.rows);
-    return [Math.floor(Math.random() * process.stdout.columns), randY > yMin ? randY : Math.floor(yMin + Math.random() * process.stdout.rows)];
+const writeRight = (text) => {
+  process.stdout.write(ansiEscapes.clearScreen);
+  const lastPoint = process.stdout.columns;
+  let downCounter = 0;
+  const reversed = text.split("").reverse().join("");
+  const bra = lastPoint - stringWidth(text);
+
+  process.stdout.write(ansiEscapes.cursorTo(bra, 0));
+  for (const char of text) {
+    process.stdout.write(chalk.bold(char));
+    downCounter--;
   }
+};
 
-const showFallingStars = () => {
-    let printedLines = [];
-    let currentIndex = 0;
-    let offset = 0;
-    process.stdout.write(ansiEscapes.eraseScreen);
-    const [x, y] = randPos();
-    process.stdout.write(ansiEscapes.cursorTo(x, y));
-    let userScore = 0;
-    let starCount = 0;
-    let paused = true;
-    let finished = false;
-    let firstIter = true;
-    const howManyPrint = 23; // Math.floor(process.stdout.rows * process.stdout.columns / 100);
-    const takenNumbers = [];
-    readline.emitKeypressEvents(process.stdin);
-    process.stdin.setRawMode(true);
-    // logUpdate(this.getDisplayString());
-    process.stdin.on("keypress", (_chunk, key) => {
-    //   const spinnerCount = this.usingSpinnersRound.length;
+const writeAtSides = () => {
+  process.stdout.write(ansiEscapes.clearScreen);
+  const lastXPoint = process.stdout.columns;
+  const bottomPoint = process.stdout.rows - 2;
+  process.stdout.write(ansiEscapes.cursorTo(0, 0));
+  process.stdout.write("LeftTop");
+  const rightTopString = "RightTop";
+  const leftBottomString = "LeftBottom";
+  const rightBottomString = "RightBottom";
+  const rightTopStartPosition = lastXPoint - stringWidth(rightTopString);
+  process.stdout.write(ansiEscapes.cursorTo(rightTopStartPosition, 0));
+  process.stdout.write(rightTopString);
 
-      if (key && key.name == "q") {
-        paused = !paused;
-      }
-
-      if (key && key.name == "c") {
-        process.exit(0);
-      }
-
-      if (key.ctrl && key.name === 'w') {
-        process.exit(0);
-      }
-
-      if (key.name === 'e') {
-        if (!paused && !takenNumbers.includes(starCount) && starCount % 9 === 0) {
-            process.stdout.write(ansiEscapes.cursorTo(0, 0));
-            process.stdout.write(ansiEscapes.eraseLine);
-            const currCol = coloreme.yellowBlack;
-            const {b: bgCol, c: col} = currCol;
-
-            process.stdout.write(chalk.bgHex(bgCol).hex(col)(`SCORE: ${++userScore}`));
-            takenNumbers.push(starCount);
-        }
-      }
-    });
-    const posis = [];
-    
-
-    const interval = setInterval(() => {
-        if (paused) {
-            process.stdout.write(ansiEscapes.cursorTo(process.stdout.columns / 2 - 8, process.stdout.rows / 2 - 4));
-            process.stdout.write('Press `e` on every 9th star');
-            firstIter = true;
-            return;
-        }
-        if (firstIter) {
-            process.stdout.write(ansiEscapes.eraseLine);
-            firstIter = false;
-        } else {
-            // firstIter = true;
-        }
-        const [x, y] = randPos();
-        process.stdout.write(ansiEscapes.cursorTo(x, y));
-        process.stdout.write(figureSet.star);
-        starCount++;
-
-        if (starCount > howManyPrint) {
-            clearInterval(interval);
-            finished = true;
-        }
-
-        if (finished) {
-            process.stdout.write(process.stdout.eraseScreen);
-            process.stdout.write(ansiEscapes.cursorTo(process.stdout.columns / 2 - 8, process.stdout.rows / 2 - 4));
-            const col = coloreme.yellowBlack.inverse;
-            const bgCol = col.b;
-            process.stdout.write(chalk.bgHex(bgCol.c)(`SCORE: ${userScore}`));
-        }
-    }, 1000);
-}
+  process.stdout.write(ansiEscapes.cursorTo(rightTopStartPosition, 0));
+  process.stdout.write(rightTopString);
+  // const leftBottomStartPosition =
+  process.stdout.write(ansiEscapes.cursorTo(0, bottomPoint));
+  process.stdout.write(leftBottomString);
+  const rightBottomStartPosition = lastXPoint - stringWidth(rightBottomString);
+  process.stdout.write(
+    ansiEscapes.cursorTo(rightBottomStartPosition, bottomPoint),
+  );
+  process.stdout.write(rightBottomString);
+};
 
 const showTextBottom = (text) => {
-    let printedLines = [];
-    let currentIndex = 0;
-    let offset = 0;
-    process.stdout.write(ansiEscapes.eraseScreen);
-    process.stdout.write(ansiEscapes.cursorTo(0, 0));
-    let paused = false;
-    const interval = setInterval(async () => {
-        // process.stdout.write(ansiEscapes.cursorMove(1));
-        if (paused) {
-            return;
-        }
+  let printedLines = [];
+  let currentIndex = 0;
+  let offset = 0;
+  process.stdout.write(ansiEscapes.eraseScreen);
+  process.stdout.write(ansiEscapes.cursorTo(0, 0));
+  let paused = false;
+  const interval = setInterval(async () => {
+    // process.stdout.write(ansiEscapes.cursorMove(1));
+    if (paused) {
+      return;
+    }
 
-        const current = text[offset];
-        printedLines[currentIndex] ||= '';
-        let y = 0;
-        
-        if (stringWidth(printedLines[currentIndex]) === process.stdout.columns) {
-            currentIndex++;
-            // process.stdout.write(ansiEscapes.cursorNextLine + ansiEscapes. );
-            // process.stdout.write(ansiEscapes.cursorGetPosition);
-            // ansiEscapes.eraseStartLine + ansiEscapes.cursorTo(0));
-        }
+    const current = text[offset];
+    printedLines[currentIndex] ||= "";
+    let y = 0;
 
-        process.stdout.write(current);
-        // printed += current;
-        printedLines[currentIndex] += current;
-        offset++;
+    if (stringWidth(printedLines[currentIndex]) === process.stdout.columns) {
+      currentIndex++;
+      // process.stdout.write(ansiEscapes.cursorNextLine + ansiEscapes. );
+      // process.stdout.write(ansiEscapes.cursorGetPosition);
+      // ansiEscapes.eraseStartLine + ansiEscapes.cursorTo(0));
+    }
 
-        paused = true;
-        const innerInterval = setInterval(() => {
-            paused = true;
-            process.stdout.write(ansiEscapes.eraseScreen);
-            y++;
-            process.stdout.write(ansiEscapes.cursorTo(0, y));
-            process.stdout.write(printedLines[currentIndex]);
+    process.stdout.write(current);
+    printedLines[currentIndex] += current;
+    offset++;
 
-            if (y === process.stdout.rows) {
-                paused = false;
-                clearInterval(innerInterval);
-            }
-        }, 10);
+    paused = true;
+    const innerInterval = setInterval(() => {
+      paused = true;
+      process.stdout.write(ansiEscapes.eraseScreen);
+      y++;
+      process.stdout.write(ansiEscapes.cursorTo(0, y));
+      process.stdout.write(printedLines[currentIndex]);
 
-        await delay(100);
+      if (y === process.stdout.rows) {
+        paused = false;
+        clearInterval(innerInterval);
+      }
+    }, 10);
 
-        if (offset > text.length) {
-            clearInterval(interval);
-        }
-    }, 20);
+    await delay(100);
+
+    if (offset > text.length) {
+      clearInterval(interval);
+    }
+  }, 20);
 };
-// star
 
-const mani = (kind) => {
-    const text = 
-`
+const mani = async (topic, item = "default", options = {}) => {
+  const text = `
 This installation guide is for usage with TypeScript, if you wish to use TypeDI without Typescript please read the documentation about how get started. This installation guide is for usage with TypeScript, if you wish to use TypeDI without Typescript please read the documentation about how get started. This installation guide is for usage with TypeScript, if you wish to use TypeDI without Typescript please read the documentation about how get started. This installation guide is for usage with TypeScript, if you wish to use TypeDI without Typescript please read the documentation about how get started. This installation guide is for usage with TypeScript, if you wish to use TypeDI without Typescript please read the documentation about how get started. This installation guide is for usage with TypeScript, if you wish to use TypeDI without Typescript please read the documentation about how get started.
  `;
-
-    if (kind === 'FALLING_TEXT') {
-        const w = stringWidth(text);
-
-        showTextFalling(text);
-    } else if (kind === 'BOTTOM_TEXT') {
-        showTextBottom(text);
-    } else if (kind === 'FALLING_STARS') {
-        showFallingStars();
-    } else {
-        setInterval(async () => {
-            process.stdout.write(ansiEscapes.cursorMove(2));
-            process.stdout.write(ansiEscapes.cursorBackward(4));
-            process.stdout.write(getRandom(sra));
-            process.stdout.write('-----');
-            process.stdout.write(getRandom(sra));
-            await delay(1000);
-            process.stdout.write(ansiEscapes.cursorBackward(14));
-            i++;
-        }, 1500);
+  const itemLower = item.toLowerCase();
+  if (topic === "game") {
+    if (itemLower === "stars-watcher") {
+      fallingStarsGame();
+    } else if (itemLower === "colored-stars-watcher") {
+      coloredStarsGame();
     }
+  } else if (topic === "print") {
+    if (itemLower === "falling-text") {
+      const w = stringWidth(text);
+      showTextFalling(text);
+    } else if (itemLower === "bottom-text") {
+      showTextBottom(text);
+    } else if (itemLower === "write-right") {
+      writeRight("console-fun");
+    } else if (itemLower === "write-sides") {
+      writeAtSides();
+    } else if (itemLower === "line-by-line") {
+      lineByLine();
+    } else if (itemLower === "hacker-types") {
+      hackerTypes();
+    } else if (itemLower === "read-file") {
+      if (R.isNil(options.subject)) {
+        throw new Error(
+          `You must provide 'subject' option providing source filename`,
+        );
+      }
+      readFileLineByLine(options.subject);
+    } else {
+      setInterval(async () => {
+        process.stdout.write(ansiEscapes.cursorMove(2));
+        process.stdout.write(ansiEscapes.cursorBackward(4));
+        process.stdout.write(getRandom(sra));
+        process.stdout.write("-----");
+        process.stdout.write(getRandom(sra));
+        await delay(1000);
+        process.stdout.write(ansiEscapes.cursorBackward(14));
+        i++;
+      }, 1500);
+    }
+  }
 };
 
-export {
-    mani,
-};
+export { mani };
