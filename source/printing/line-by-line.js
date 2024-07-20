@@ -4,7 +4,7 @@ import chalk from "chalk";
 import { getLines } from "../utils";
 
 const lineByLine = (text, options = {}) => {
-  const intervalMs = options.delay || 300;
+  const intervalMs = options.delay || 1000;
   const lines = getLines(text);
   let prevLine = "";
   let paused = false;

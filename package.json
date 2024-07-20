@@ -1,6 +1,6 @@
 {
   "name": "console-fun",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Some stuff in the console: utils, printing, games and other fun",
   "main": "dist/cli.mjs",
   "scripts": {
@@ -9,15 +9,28 @@
     "go": "node dist/cli.mjs",
     "prettify": "prettier . --write"
   },
-  "keywords": [],
+  "keywords": [
+    "fun",
+    "game",
+    "productivity",
+    "console",
+    "terminal",
+    "tool",
+    "reader",
+    "print",
+    "typer",
+    "watcher",
+    "figure",
+    "figures"
+  ],
   "author": "Rushan Alyautdinov",
   "license": "MIT",
   "bin": {
-		"console-fun": "dist/cli.mjs",
-		"confun": "dist/cli.mjs",
-		"cofun": "dist/cli.mjs",
+    "console-fun": "dist/cli.mjs",
+    "confun": "dist/cli.mjs",
+    "cofun": "dist/cli.mjs",
     "cofu": "dist/cli.mjs"
-	},
+  },
   "dependencies": {
     "ansi-escapes": "^7.0.0",
     "chalk": "^5.3.0",
@@ -26,6 +39,7 @@
     "fast-shuffle": "^6.1.0",
     "figures": "^6.1.0",
     "gradient-string": "^2.0.2",
+    "log-update": "^6.0.0",
     "meow": "^13.2.0",
     "rambda": "^9.2.0",
     "string-width": "^7.1.0"

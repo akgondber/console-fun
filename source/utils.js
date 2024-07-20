@@ -1,3 +1,4 @@
+import { join, repeat } from "rambda";
 import stringWidth from "string-width";
 
 const getLines = (text) => {
@@ -50,4 +51,5 @@ const getLines = (text) => {
   return lines;
 };
 
-export { getLines };
+const repeatString = (source, count) => join("", repeat(source, count));
+export { getLines, repeatString };

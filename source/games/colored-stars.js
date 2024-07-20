@@ -28,7 +28,9 @@ const coloredStarsGame = () => {
   let paused = true;
   let finished = false;
   let firstIter = true;
-  const howManyPrint = Math.floor(process.stdout.rows * process.stdout.columns / 40);
+  const howManyPrint = Math.floor(
+    (process.stdout.rows * process.stdout.columns) / 40,
+  );
   const takenNumbers = [];
   readline.emitKeypressEvents(process.stdin);
   process.stdin.setRawMode(true);

@@ -23,17 +23,21 @@ $ console-fun --help
      --item, -i   Item to be used in context of topic (e.g. hacker-types, read-file, colored-stars-watcher)
      --subject    Subject to be used in context of some items (e.g. filename for read-file item)
      --color      Color to be used in context of some items
+     --dimension  Matrix size for grid-like games
+     --delay      Delay value to be used for example when reading file line-by-line
 
   Examples
      $ console-fun --topic game --item stars-watcher
      $ console-fun --topic game --item colored-stars-watcher
      $ console-fun --topic print --item hacker-types
      $ console-fun --topic print --item read-file --subject tmp/bar.txt
+     $ console-fun --topic print --item read-file --subject tmp/bar.txt --delay 3000
 ```
 
 ## Demo
 
 ### colored-stars-game
+
 ![colored-stars-game-demo](media/colored-stars-game-demo.gif)
 
 ### hacker-types
@@ -41,6 +45,12 @@ $ console-fun --help
 Type any keys and some program text will be printed!
 
 ![hacker-types-demo](media/hacker-types-demo.gif)
+
+### read-file
+
+Read file line-by-line
+
+![read-file-demo](media/read-file-demo.gif)
 
 etc.
 

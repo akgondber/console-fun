@@ -14,6 +14,8 @@ const cli = meow(
     --item, -i   Item to be used in context of topic (e.g. hacker-types, read-file, colored-stars-watcher)
     --subject    Subject to be used in context of some items (e.g. filename for read-file item)
     --color      Color to be used in context of some items
+    --dimension  Matrix size for grid-like games
+    --delay      Delay value to be used for example when reading file line-by-line
 
 	Examples
     $ console-fun --topic game --item stars-watcher
@@ -40,8 +42,17 @@ const cli = meow(
         type: "string",
         shortFlag: "c",
       },
+      dimension: {
+        type: "string",
+        shortFlag: "d",
+      },
+      delay: {
+        type: "string",
+        shortFlag: "e",
+      },
     },
   },
 );
-const options = R.reject(R.isNil, R.pick(["subject", "color"], cli.flags));
+const toPick = ["subject", "color", "dimension", "delay"];
+const options = R.reject(R.isNil, R.pick(toPick, cli.flags));
 mani(cli.flags.topic, cli.flags.item, options);

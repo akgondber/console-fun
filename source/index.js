@@ -10,8 +10,9 @@ import { lineByLine } from "./printing/line-by-line";
 import { readFileLineByLine } from "./printing/read-file";
 import { coloredStarsGame } from "./games/colored-stars";
 import { hackerTypes } from "./printing/hacker-types";
+import { watchFigureGame } from "./games/watch-figure";
 
-console.log(ansiEscapes.cursorUp(2) + ansiEscapes.cursorLeft);
+// console.log(ansiEscapes.cursorUp(2) + ansiEscapes.cursorLeft);
 const getRandom = R.compose(R.head, shuffle);
 
 let i = 0;
@@ -89,7 +90,6 @@ const writeAtSides = () => {
 
   process.stdout.write(ansiEscapes.cursorTo(rightTopStartPosition, 0));
   process.stdout.write(rightTopString);
-  // const leftBottomStartPosition =
   process.stdout.write(ansiEscapes.cursorTo(0, bottomPoint));
   process.stdout.write(leftBottomString);
   const rightBottomStartPosition = lastXPoint - stringWidth(rightBottomString);
@@ -107,7 +107,6 @@ const showTextBottom = (text) => {
   process.stdout.write(ansiEscapes.cursorTo(0, 0));
   let paused = false;
   const interval = setInterval(async () => {
-    // process.stdout.write(ansiEscapes.cursorMove(1));
     if (paused) {
       return;
     }
@@ -159,6 +158,8 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
       fallingStarsGame();
     } else if (itemLower === "colored-stars-watcher") {
       coloredStarsGame();
+    } else if (itemLower === "watch-figure") {
+      await watchFigureGame({ size: options.dimension || 8 });
     }
   } else if (topic === "print") {
     if (itemLower === "falling-text") {
@@ -180,7 +181,7 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
           `You must provide 'subject' option providing source filename`,
         );
       }
-      readFileLineByLine(options.subject);
+      readFileLineByLine(options.subject, R.omit("subject", options));
     } else {
       setInterval(async () => {
         process.stdout.write(ansiEscapes.cursorMove(2));
