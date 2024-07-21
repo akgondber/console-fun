@@ -19,8 +19,8 @@ const cli = meow(
 
 	Examples
     $ console-fun --topic game --item stars-watcher
-	   $ console-fun --topic game --item colored-stars-watcher
-	   $ console-fun --topic print --item hacker-types
+	  $ console-fun --topic game --item colored-stars-watcher
+	  $ console-fun --topic print --item hacker-types
     $ console-fun --topic print --item read-file --subject tmp/bar.txt
 `,
   {

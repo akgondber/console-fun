@@ -33,6 +33,14 @@ const start = async (roundFigure, { size }) => {
         }
       }
     } else if (key.name === "space") {
+      if (currentFigure === roundFigure) {
+        const lastIndex = correctIndexes[correctIndexes.length - 1];
+        if (!answeredIndexes.includes(lastIndex)) {
+          score++;
+          answeredIndexes.push(lastIndex);
+          logUpdate(getString());
+        }
+      }
     } else if (key.name === "down") {
     } else if (key.name === "up") {
       process.exit();

@@ -1,6 +1,6 @@
 {
   "name": "console-fun",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Some stuff in the console: utils, printing, games and other fun",
   "main": "dist/cli.mjs",
   "scripts": {

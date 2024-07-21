@@ -11,6 +11,7 @@ import { readFileLineByLine } from "./printing/read-file";
 import { coloredStarsGame } from "./games/colored-stars";
 import { hackerTypes } from "./printing/hacker-types";
 import { watchFigureGame } from "./games/watch-figure";
+import { kardo } from "./games/kardo";
 
 // console.log(ansiEscapes.cursorUp(2) + ansiEscapes.cursorLeft);
 const getRandom = R.compose(R.head, shuffle);
@@ -160,6 +161,8 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
       coloredStarsGame();
     } else if (itemLower === "watch-figure") {
       await watchFigureGame({ size: options.dimension || 8 });
+    } else if (itemLower === "kardo") {
+      kardo();
     }
   } else if (topic === "print") {
     if (itemLower === "falling-text") {
