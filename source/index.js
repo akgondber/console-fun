@@ -12,6 +12,16 @@ import { coloredStarsGame } from "./games/colored-stars";
 import { hackerTypes } from "./printing/hacker-types";
 import { watchFigureGame } from "./games/watch-figure";
 import { kardo } from "./games/kardo";
+import { drawHamburgers } from "./printing/hamburgers";
+import { drawMixFigures } from "./printing/mix-figures";
+import { drawIt } from "./printing/draw-x";
+import { drawTriangles } from "./printing/draw/draw-triangles";
+import { drawBar } from "./printing/draw-bar";
+import { drawCircles } from "./printing/draw/draw-circles";
+import { drawHisa } from "./printing/draw/hisa";
+import { drawMisc } from "./printing/draw/draw-misc";
+import { circledWords } from "./printing/draw/circled-words";
+import { animateFromEnd } from "./printing/draw/animate-from-end";
 
 // console.log(ansiEscapes.cursorUp(2) + ansiEscapes.cursorLeft);
 const getRandom = R.compose(R.head, shuffle);
@@ -165,7 +175,7 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
       kardo();
     }
   } else if (topic === "print") {
-    if (itemLower === "falling-text") {
+    if (itemLower === "char-by-char") {
       const w = stringWidth(text);
       showTextFalling(text);
     } else if (itemLower === "bottom-text") {
@@ -174,10 +184,28 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
       writeRight("console-fun");
     } else if (itemLower === "write-sides") {
       writeAtSides();
+    } else if (itemLower === "circled-words") {
+      circledWords();
     } else if (itemLower === "line-by-line") {
       lineByLine();
     } else if (itemLower === "hacker-types") {
       hackerTypes();
+    } else if (itemLower === "mix-figures") {
+      drawMixFigures({ colored: options.colored });
+    } else if (itemLower === "draw-x") {
+      drawIt({ colored: options.colored });
+    } else if (itemLower === "draw-triangles") {
+      drawTriangles();
+    } else if (itemLower === "draw-circles") {
+      drawCircles();
+    } else if (itemLower === "draw-bar") {
+      drawBar();
+    } else if (itemLower === "draw-hisa") {
+      drawHisa();
+    } else if (itemLower === "draw-misc") {
+      drawMisc();
+    } else if (itemLower === "animate-from-end") {
+      animateFromEnd();
     } else if (itemLower === "read-file") {
       if (R.isNil(options.subject)) {
         throw new Error(
@@ -185,6 +213,8 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
         );
       }
       readFileLineByLine(options.subject, R.omit("subject", options));
+    } else if (itemLower === "hamburgers" || itemLower === "drawHamburgers") {
+      drawHamburgers();
     } else {
       setInterval(async () => {
         process.stdout.write(ansiEscapes.cursorMove(2));

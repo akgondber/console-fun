@@ -52,6 +52,12 @@ Read file line-by-line
 
 ![read-file-demo](media/read-file-demo.gif)
 
+### animate-from-end
+
+Animate from end (draw chars one by one from the end)
+
+![animate-from-end](media/animate-from-end-demo.gif)
+
 etc.
 
 ## License

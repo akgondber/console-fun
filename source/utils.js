@@ -52,4 +52,13 @@ const getLines = (text) => {
 };
 
 const repeatString = (source, count) => join("", repeat(source, count));
-export { getLines, repeatString };
+const randPos = (yMin = 0) => {
+  const randY = Math.floor(Math.random() * process.stdout.rows);
+  return [
+    Math.floor(Math.random() * process.stdout.columns),
+    randY > yMin
+      ? randY
+      : Math.floor(yMin + Math.random() * process.stdout.rows),
+  ];
+};
+export { getLines, repeatString, randPos };

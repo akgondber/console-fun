@@ -10,7 +10,7 @@ const cli = meow(
 	  $ console-fun <input>
 
 	Options
-	   --topic, -t  Topic, (e.g. game, print)
+	  --topic, -t  Topic, (e.g. game, print)
     --item, -i   Item to be used in context of topic (e.g. hacker-types, read-file, colored-stars-watcher)
     --subject    Subject to be used in context of some items (e.g. filename for read-file item)
     --color      Color to be used in context of some items
@@ -21,6 +21,7 @@ const cli = meow(
     $ console-fun --topic game --item stars-watcher
 	  $ console-fun --topic game --item colored-stars-watcher
 	  $ console-fun --topic print --item hacker-types
+    $ console-fun --topic print --item char-by-char
     $ console-fun --topic print --item read-file --subject tmp/bar.txt
 `,
   {
@@ -50,9 +51,12 @@ const cli = meow(
         type: "string",
         shortFlag: "e",
       },
+      colored: {
+        type: "boolean",
+      },
     },
   },
 );
-const toPick = ["subject", "color", "dimension", "delay"];
+const toPick = ["subject", "color", "dimension", "delay", "colored"];
 const options = R.reject(R.isNil, R.pick(toPick, cli.flags));
 mani(cli.flags.topic, cli.flags.item, options);
