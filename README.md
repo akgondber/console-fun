@@ -34,6 +34,27 @@ $ console-fun --help
      $ console-fun --topic print --item read-file --subject tmp/bar.txt --delay 3000
 ```
 
+# Notes
+
+Available items in print topic:
+char-by-char
+bottom-text
+write-right
+write-sides
+circled-words
+line-by-line
+hacker-types
+mix-figures
+draw-x
+draw-triangles
+draw-circles
+draw-bar
+animate-from-begin
+animatr-from-end
+read-file
+hamburgers
+diag
+
 ## Demo
 
 ### colored-stars-game

@@ -13,6 +13,7 @@ import { hackerTypes } from "./printing/hacker-types";
 import { watchFigureGame } from "./games/watch-figure";
 import { kardo } from "./games/kardo";
 import { drawHamburgers } from "./printing/hamburgers";
+import { diag } from "./printing/diag-now";
 import { drawMixFigures } from "./printing/mix-figures";
 import { drawIt } from "./printing/draw-x";
 import { drawTriangles } from "./printing/draw/draw-triangles";
@@ -22,6 +23,7 @@ import { drawHisa } from "./printing/draw/hisa";
 import { drawMisc } from "./printing/draw/draw-misc";
 import { circledWords } from "./printing/draw/circled-words";
 import { animateFromEnd } from "./printing/draw/animate-from-end";
+import { animateFromBegin } from "./printing/draw/animate-from-begin";
 
 // console.log(ansiEscapes.cursorUp(2) + ansiEscapes.cursorLeft);
 const getRandom = R.compose(R.head, shuffle);
@@ -204,6 +206,8 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
       drawHisa();
     } else if (itemLower === "draw-misc") {
       drawMisc();
+    } else if (itemLower === "animate-from-begin") {
+      animateFromBegin();
     } else if (itemLower === "animate-from-end") {
       animateFromEnd();
     } else if (itemLower === "read-file") {
@@ -215,6 +219,8 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
       readFileLineByLine(options.subject, R.omit("subject", options));
     } else if (itemLower === "hamburgers" || itemLower === "drawHamburgers") {
       drawHamburgers();
+    } else if (itemLower === "diag") {
+      await diag();
     } else {
       setInterval(async () => {
         process.stdout.write(ansiEscapes.cursorMove(2));

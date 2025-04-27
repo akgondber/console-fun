@@ -1,6 +1,6 @@
 {
   "name": "console-fun",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "Some stuff in the console: utils, printing, games and other fun",
   "main": "dist/cli.mjs",
   "scripts": {
@@ -42,7 +42,8 @@
     "log-update": "^6.0.0",
     "meow": "^13.2.0",
     "rambda": "^9.2.0",
-    "string-width": "^7.1.0"
+    "string-width": "^7.1.0",
+    "terminal-size": "^4.0.0"
   },
   "devDependencies": {
     "prettier": "^3.3.2",
