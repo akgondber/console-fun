@@ -24,6 +24,7 @@ import { drawMisc } from "./printing/draw/draw-misc";
 import { circledWords } from "./printing/draw/circled-words";
 import { animateFromEnd } from "./printing/draw/animate-from-end";
 import { animateFromBegin } from "./printing/draw/animate-from-begin";
+import { traction } from "./games/traction";
 
 // console.log(ansiEscapes.cursorUp(2) + ansiEscapes.cursorLeft);
 const getRandom = R.compose(R.head, shuffle);
@@ -175,6 +176,8 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
       await watchFigureGame({ size: options.dimension || 8 });
     } else if (itemLower === "kardo") {
       kardo();
+    } else if (itemLower === "traction") {
+      traction(options.ballMovement);
     }
   } else if (topic === "print") {
     if (itemLower === "char-by-char") {
