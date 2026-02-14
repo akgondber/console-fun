@@ -28,17 +28,16 @@ const drawMixFigures = ({ colored }) => {
     }
     if (tries > 5) {
       clearInterval(interval);
+      const instructions = `${chalk.cyan.bold("r")} - ${chalk.italic("run again")}   ${chalk.blue.bold("q")} - ${chalk.italic("exit")}`;
       process.stdout.write(ansiEscapes.cursorTo(0, process.stdout.rows - 1));
       process.stdout.write(ansiEscapes.eraseEndLine);
       process.stdout.write(
         ansiEscapes.cursorTo(
-          process.stdout.columns / 2,
+          Math.floor(process.stdout.columns / 2 - 8),
           process.stdout.rows - 1,
         ),
       );
-      process.stdout.write(
-        chalk.cyan(`${chalk.bold("r")} - run again  ${chalk.bold("q")} - exit`),
-      );
+      process.stdout.write(instructions);
     }
 
     process.stdout.write(ansiEscapes.cursorTo(x, y));
@@ -67,7 +66,7 @@ const drawMixFigures = ({ colored }) => {
   process.stdin.setRawMode(true);
   process.stdin.on("keypress", async (_chunk, key) => {
     if (key.name == "r") {
-      drawHamburgers();
+      drawMixFigures({ colored });
     }
     if (key && key.name == "q") {
       process.exit();

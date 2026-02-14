@@ -25,6 +25,7 @@ import { circledWords } from "./printing/draw/circled-words";
 import { animateFromEnd } from "./printing/draw/animate-from-end";
 import { animateFromBegin } from "./printing/draw/animate-from-begin";
 import { traction } from "./games/traction";
+import { reacter } from "./games/reacter";
 
 // console.log(ansiEscapes.cursorUp(2) + ansiEscapes.cursorLeft);
 const getRandom = R.compose(R.head, shuffle);
@@ -177,7 +178,11 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
     } else if (itemLower === "kardo") {
       kardo();
     } else if (itemLower === "traction") {
+      console.log(`TRA ${itemLower}`);
       traction(options.ballMovement);
+    } else if (itemLower === "reacter") {
+      const reacterOpts = R.pick(["colored", "delay", "infinite"], options);
+      reacter(reacterOpts);
     }
   } else if (topic === "print") {
     if (itemLower === "char-by-char") {
@@ -192,10 +197,10 @@ This installation guide is for usage with TypeScript, if you wish to use TypeDI 
     } else if (itemLower === "circled-words") {
       circledWords();
     } else if (itemLower === "line-by-line") {
-      lineByLine();
+      lineByLine(options.text, R.pick(["delay"], options));
     } else if (itemLower === "hacker-types") {
       hackerTypes();
-    } else if (itemLower === "mix-figures") {
+    } else if (itemLower === "mix-figures" || itemLower === "mixfig") {
       drawMixFigures({ colored: options.colored });
     } else if (itemLower === "draw-x") {
       drawIt({ colored: options.colored });

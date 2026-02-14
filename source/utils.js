@@ -1,5 +1,7 @@
 import { join, repeat } from "rambda";
 import stringWidth from "string-width";
+import ansiEscapes from "ansi-escapes";
+import { times, flip } from "rambda";
 
 const getLines = (text) => {
   const lines = [];
@@ -61,4 +63,32 @@ const randPos = (yMin = 0) => {
       : Math.floor(yMin + Math.random() * process.stdout.rows),
   ];
 };
-export { getLines, repeatString, randPos };
+const writeRel = (x, y, subject) => {
+  process.stdout.write(ansiEscapes.cursorMove(x, y));
+  process.stdout.write(subject);
+};
+const writeCur = (subject) => {
+  process.stdout.write(subject);
+};
+const goToRel = (x, y) => {
+  process.stdout.write(ansiEscapes.cursorMove(x, y));
+};
+
+const flipTimes = flip(times);
+const twoTimes = flipTimes(2);
+const threeTimes = flipTimes(3);
+const fourTimes = flipTimes(4);
+const fiveTimes = flipTimes(5);
+
+export {
+  getLines,
+  repeatString,
+  randPos,
+  writeRel,
+  writeCur,
+  goToRel,
+  twoTimes,
+  threeTimes,
+  fourTimes,
+  fiveTimes,
+};
