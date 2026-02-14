@@ -1,7 +1,9 @@
 {
   "name": "console-fun",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "Some stuff in the console: utils, printing, games and other fun",
+  "homepage": "https://github.com/akgondber/console-fun",
+  "repository": "akgondber/console-fun",
   "main": "dist/cli.mjs",
   "scripts": {
     "test": "prettier . --check",

@@ -70,6 +70,12 @@ diag
 
 ![colored-stars-game-demo](media/colored-stars-game-demo.gif)
 
+### reacter-game
+
+In this game you need to watch a ball bouncing and react with pressing 'r' in the keyboard when ball has crosses the top or bottom edge. If you fail to press the key in time, the edge at the point crossed is erased. If you do, you get an extra point, and the edge at the point crossed remains in place. You can specify delay option to increase or decrease speed, more delay will decrease speed.
+
+![reacter game](media/reacter-game.gif)
+
 ### hacker-types
 
 Type any keys and some program text will be printed!
@@ -87,6 +93,18 @@ Read file line-by-line
 Animate from end (draw chars one by one from the end)
 
 ![animate-from-end](media/animate-from-end-demo.gif)
+
+### draw-bar
+
+Draw a square using various shapes and a pointer in the center that constantly rotates.
+
+![draw-bar](media/draw-bar-demo.gif)
+
+### mix-figures
+
+Fill the console with various figures, in each step a new figure is drawn in a random position.
+
+![mix-figures](media/mix-figures.gif)
 
 etc.
 

@@ -7,7 +7,7 @@ import { shuffle } from "fast-shuffle";
 
 let score = 0;
 
-const drawY = ({ colored }) => {
+const drawY = ({ colored } = {}) => {
   process.stdout.write(ansiEscapes.clearScreen);
   let step = 0;
   let pointIndex = 0;
@@ -84,9 +84,10 @@ const drawY = ({ colored }) => {
         chalk.black,
         chalk.gray,
       ])[0];
-      process.stdout.write(
-        clr(i % 2 === 0 ? figureSet.triangleUp : figureSet.triangleDown),
-      );
+      const drawee =
+        i % 2 === 0 ? figureSet.triangleUp : figureSet.triangleDown;
+
+      process.stdout.write(colored ? clr(drawee) : drawee);
     }, currPoints);
     process.stdout.write(currPoints.length.toString());
     if (pointIndex >= points.length) {
